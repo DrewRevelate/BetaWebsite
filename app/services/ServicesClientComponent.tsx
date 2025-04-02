@@ -268,6 +268,7 @@ export default withMobileOptimization(ServicesClientComponent, {
   mobileBreakpoint: 768,
   optimizeImages: true,
   reduceMotion: true,
+  enableLazyComponents: true,
   optimizeTouchTargets: true,
   enableFastClick: true,
   disableHoverOnTouch: true
