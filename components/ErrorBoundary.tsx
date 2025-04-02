@@ -57,7 +57,9 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     // Call optional error handler
     if (this.props.onError) {
       try {
-        this.props.onError(error, errorInfo.componentStack);
+        // Ensure componentStack is always a string
+        const componentStack = errorInfo.componentStack || '';
+        this.props.onError(error, componentStack);
       } catch (handlerError) {
         console.error('Error in error handler:', handlerError);
       }
