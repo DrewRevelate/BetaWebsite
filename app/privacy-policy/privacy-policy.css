@@ -1,0 +1,140 @@
+/* Privacy Policy Page Specific Styles */
+
+/* Table of Contents Styles */
+.toc-nav {
+  position: relative;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.toc-link::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background-color: var(--color-primary);
+  transition: height 0.2s ease;
+}
+
+.toc-link:hover::before,
+.toc-link.active::before {
+  height: 70%;
+}
+
+.toc-link.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Policy Sections Animation */
+.policy-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.policy-section.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Animation Delay */
+.policy-section:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.policy-section:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.policy-section:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.policy-section:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+.policy-section:nth-child(6) {
+  transition-delay: 0.5s;
+}
+
+.policy-section:nth-child(7) {
+  transition-delay: 0.6s;
+}
+
+.policy-section:nth-child(8) {
+  transition-delay: 0.7s;
+}
+
+.policy-section:nth-child(9) {
+  transition-delay: 0.8s;
+}
+
+.policy-section:nth-child(10) {
+  transition-delay: 0.9s;
+}
+
+/* Back to Top Button */
+#back-to-top {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Print Styles */
+@media print {
+  .toc-nav,
+  #back-to-top,
+  button {
+    display: none !important;
+  }
+  
+  .policy-section {
+    opacity: 1 !important;
+    transform: none !important;
+    break-inside: avoid;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  body {
+    font-size: 11pt;
+  }
+  
+  h1 {
+    font-size: 18pt;
+  }
+  
+  h2 {
+    font-size: 16pt;
+  }
+  
+  h3 {
+    font-size: 14pt;
+  }
+  
+  /* Add page breaks before major sections */
+  #information-collection,
+  #data-security,
+  #user-rights {
+    break-before: page;
+  }
+}

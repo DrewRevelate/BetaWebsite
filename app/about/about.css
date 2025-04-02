@@ -1,0 +1,405 @@
+/* Custom styles for the about page with masculine-themed design */
+
+/* Animation for elements that come into view */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animations */
+.animate-on-scroll.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.animate-on-scroll.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.animate-on-scroll.delay-300 {
+  transition-delay: 0.3s;
+}
+
+/* Enhanced focus states for better accessibility */
+.team-card:focus-within,
+.btn:focus {
+  outline: 2px solid var(--color-teal-500, #14b8a6);
+  outline-offset: 2px;
+}
+
+/* Custom focus styling for dark mode */
+@media (prefers-color-scheme: dark) {
+  .team-card:focus-within,
+  .btn:focus {
+    outline-color: var(--color-teal-400, #2dd4bf);
+  }
+}
+
+/* Back to top button styling */
+#back-to-top {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#back-to-top:hover,
+#back-to-top:focus {
+  transform: translateY(-3px);
+}
+
+/* 3D transformation styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-700 {
+  perspective: 700px;
+}
+
+.perspective {
+  perspective: 700px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.transform-3d-preserve {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+/* Animations for visualizations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse animations for glowing elements */
+@keyframes pulse-slow {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Animation for appearance */
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-appear {
+  animation: appear 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* Animation for zoom appearance */
+@keyframes appear-zoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-appear-zoom {
+  animation: appear-zoom 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* Add reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .animate-appear,
+  .animate-appear-zoom,
+  .float-animation,
+  .animate-pulse-slow {
+    animation: none !important;
+  }
+}
+
+/* Shadow effects for cards and elements */
+.shadow-teal {
+  box-shadow: 0 0 10px 2px rgba(20, 184, 166, 0.3);
+}
+
+.shadow-indigo {
+  box-shadow: 0 0 10px 2px rgba(99, 102, 241, 0.3);
+}
+
+.shadow-blue {
+  box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Glowing effect animations */
+@keyframes glow-teal {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px rgba(20, 184, 166, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px 4px rgba(20, 184, 166, 0.5);
+  }
+}
+
+.glow-teal {
+  animation: glow-teal 2s ease-in-out infinite;
+}
+
+/* Stats counter animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-counter {
+  animation: countUp 0.8s ease-out forwards;
+}
+
+/* Team section card effects */
+.team-card {
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.team-card:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Skill bars animation */
+.skill-bar {
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Circuit pattern animation */
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.circuit-pattern {
+  animation: circuit-pulse 8s ease-in-out infinite;
+}
+
+/* Data flow animation */
+@keyframes data-flow {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.data-flow-path {
+  stroke-dasharray: 10;
+  animation: data-flow 3s linear infinite;
+}
+
+/* Icon hover effects */
+.icon-container {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.icon-container:hover {
+  transform: translateY(-3px);
+}
+
+.icon-container:hover .icon {
+  transform: scale(1.1);
+}
+
+.icon {
+  transition: transform 0.3s ease;
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(15, 23, 42, 0.9);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Graph line animations */
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.graph-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 1.5s ease-in-out forwards;
+}
+
+/* Grid background effects */
+.grid-bg {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+
+/* Mission section cards with technical design */
+.mission-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #14b8a6, #3b82f6);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.mission-card:hover::before {
+  transform: scaleX(1);
+}
+
+.mission-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Customized scrollbar for technical feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Dark mode scrollbar */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: #334155;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #64748b;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}

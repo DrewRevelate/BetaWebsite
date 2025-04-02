@@ -1,0 +1,301 @@
+/* Terms of Service Page Specific Styles */
+
+/* CSS Variables for consistent theming with dark mode support */
+:root {
+  --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --focus-ring-color: rgba(59, 130, 246, 0.5);
+  --focus-ring-width: 3px;
+  --color-primary: rgb(37, 99, 235);
+  --color-primary-light: rgb(59, 130, 246);
+  --color-primary-dark: rgb(30, 64, 175);
+  --color-text: rgb(15, 23, 42);
+  --color-text-light: rgb(71, 85, 105);
+  --color-background: rgb(255, 255, 255);
+  --color-background-alt: rgb(241, 245, 249);
+  --color-border: rgb(226, 232, 240);
+}
+
+/* Dark mode variables */
+.dark {
+  --color-primary: rgb(59, 130, 246);
+  --color-primary-light: rgb(96, 165, 250);
+  --color-primary-dark: rgb(37, 99, 235);
+  --color-text: rgb(226, 232, 240);
+  --color-text-light: rgb(148, 163, 184);
+  --color-background: rgb(15, 23, 42);
+  --color-background-alt: rgb(30, 41, 59);
+  --color-border: rgb(51, 65, 85);
+}
+
+/* Table of Contents Styles */
+.toc-nav {
+  position: relative;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: var(--transition-standard);
+  outline: none; /* Remove default outline */
+}
+
+/* Keyboard focus styles for better accessibility */
+.toc-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.toc-link::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background-color: var(--color-primary);
+  transition: height 0.2s ease;
+}
+
+.toc-link:hover::before,
+.toc-link.active::before {
+  height: 70%;
+}
+
+.toc-link.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Terms Sections Animation - Optimized for performance with reduced Cumulative Layout Shift */
+.terms-section {
+  opacity: 0.5; /* Start with partial opacity to reduce CLS */
+  transform: translateY(10px); /* Reduced transform distance to minimize CLS */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Faster transitions */
+  will-change: opacity, transform; /* Hint for browser optimization */
+  contain: content; /* Improve performance by containing repaints */
+  min-height: 50px; /* Reserve space to prevent layout shift */
+}
+
+.terms-section.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Animation Delay - Limited to visible sections only to reduce CLS */
+@media (prefers-reduced-motion: no-preference) {
+  .terms-section:nth-child(2) {
+    transition-delay: 0.05s; /* Reduced delay */
+  }
+  
+  .terms-section:nth-child(3) {
+    transition-delay: 0.075s; /* Reduced delay */
+  }
+}
+
+/* Back to Top Button - Now controlled via React */
+#back-to-top {
+  transition: var(--transition-standard);
+  will-change: opacity, transform, visibility;
+  transform-origin: center;
+}
+
+/* Focus styles for the back to top button */
+#back-to-top:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 4px;
+}
+
+/* Mobile Table of Contents */
+#toc-mobile {
+  will-change: height, opacity;
+  overflow-y: auto;
+  max-height: 80vh; /* Prevent extremely long TOC */
+}
+
+#toc-mobile ul {
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#toc-mobile li {
+  margin-bottom: 0.5rem;
+}
+
+#toc-mobile a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  color: var(--color-text);
+  transition: var(--transition-standard);
+}
+
+#toc-mobile a:hover,
+#toc-mobile a:focus {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-primary);
+}
+
+#toc-mobile a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+}
+
+/* Skip link for keyboard users */
+.skip-to-content {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  background: #fff;
+  color: var(--color-primary);
+  padding: 1rem;
+  z-index: 9999;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.skip-to-content:focus {
+  top: 0;
+  left: 0;
+}
+
+/* Terms section focus styles */
+.terms-section:focus {
+  outline: none;
+}
+
+.terms-section:focus-visible {
+  outline: var(--focus-ring-width) dashed var(--focus-ring-color);
+  outline-offset: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  .toc-nav {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* Print Styles */
+/* Improved focus styles for better accessibility throughout */
+a:focus-visible,
+button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  .toc-link.active::before {
+    background-color: CanvasText;
+  }
+  
+  #back-to-top {
+    border: 1px solid CanvasText;
+  }
+  
+  .terms-section:focus-visible {
+    outline: 2px solid CanvasText;
+  }
+}
+
+/* Improved reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .terms-section {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  
+  .toc-link,
+  #back-to-top,
+  .toc-toggle-icon {
+    transition: none !important;
+  }
+  
+  #toc-mobile {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .toc-nav,
+  #back-to-top,
+  button,
+  .mobile-toc-toggle {
+    display: none !important;
+  }
+  
+  .terms-section {
+    opacity: 1 !important;
+    transform: none !important;
+    break-inside: avoid;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  body {
+    font-size: 11pt;
+  }
+  
+  h1 {
+    font-size: 18pt;
+  }
+  
+  h2 {
+    font-size: 16pt;
+  }
+  
+  h3 {
+    font-size: 14pt;
+  }
+  
+  /* Add page breaks before major sections */
+  #user-obligations,
+  #intellectual-property,
+  #disclaimers {
+    break-before: page;
+  }
+}
+
+/* Loading states for sections */
+.terms-section.loading {
+  position: relative;
+}
+
+.terms-section.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0) 100%);
+  animation: shimmer 2s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Dark mode adjustments */
+.dark .terms-section.loading::after {
+  background: linear-gradient(90deg, 
+    rgba(26,26,26,0) 0%, 
+    rgba(26,26,26,0.2) 50%, 
+    rgba(26,26,26,0) 100%);
+}

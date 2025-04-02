@@ -1,0 +1,753 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance optimizations */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Apply to off-screen sections to improve initial rendering */
+@media (min-width: 768px) {
+  section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 300px;
+  }
+}
+
+/* Optimize animations for performance */
+@media (prefers-reduced-motion: no-preference) {
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+}
+
+/* Load non-critical content only when needed */
+.lazy-load {
+  will-change: auto;
+  transition: opacity 0.5s ease;
+}
+
+.lazy-load:not(.loaded) {
+  opacity: 0;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+}
+
+.process-steps .step-number {
+  @apply bg-gradient-to-br from-primary to-primary-dark dark:from-primary-light dark:to-primary text-white font-bold z-10;
+}
+
+/* Base theme variables - Light Mode */
+:root {
+  /* Colors */
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --primary-light: #4895ef;
+  --primary: #3b55e3;
+  --primary-dark: #2d43be;
+  --secondary: #7209b7;
+  --secondary-light: #9d4edd;
+  --accent: #f72585;
+  --dark: #0d1b2a;
+  --gray-dark: #1b263b;
+  --gray: #415a77;
+  --gray-light: #778da9;
+  --light: #f8f9fa;
+  --light-alt: #f0f2f5;
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --error: #e74c3c;
+
+  /* Variables for shadcn components */
+  --foreground: 0 0% 0%;
+  --background: 0 0% 100%;
+  --muted: 210 40% 96%;
+  --border: 214.3 31.8% 91.4%;
+  --ring: 215 20.2% 65.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 3.9%;
+  --primary-color: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary-color: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --accent-color: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --input: 214.3 31.8% 91.4%;
+}
+
+/* Dark mode variables */
+.dark {
+  /* Colors */
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 13, 27, 42; /* Using dark color from palette */
+  --primary-light: #5e7aef;
+  --primary: #4f6ff0;
+  --primary-dark: #455cde;
+  --secondary: #8531c5;
+  --secondary-light: #b06fe6;
+  --accent: #f94997;
+  --dark: #f8f9fa;
+  --gray-dark: #e6eaf0;
+  --gray: #a1b9d7;
+  --gray-light: #4f6f9d;
+  --light: #0d1b2a;
+  --light-alt: #1b263b;
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --error: #e74c3c;
+
+  /* Variables for shadcn components */
+  --foreground: 0 0% 98%;
+  --background: 222 47% 11%;
+  --muted: 217 33% 17%;
+  --border: 217 33% 25%;
+  --ring: 215 20.2% 65.1%;
+  --card: 222 47% 11%;
+  --card-foreground: 0 0% 98%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 0 0% 98%;
+  --primary-color: 221.2 83.2% 58%;
+  --primary-foreground: 210 40% 98%;
+  --secondary-color: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --accent-color: 217 33% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84.2% 65%;
+  --destructive-foreground: 210 40% 98%;
+  --input: 217 33% 25%;
+}
+
+@layer base {
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    scroll-behavior: smooth;
+    @apply scroll-pt-24;
+  }
+
+  /* Base body styles */
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    @apply antialiased;
+  }
+
+  /* Focus outline styling for improved accessibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+  
+  /* Default container behavior */
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+  
+  /* Improve heading readability */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-bold;
+  }
+
+  /* Ensure buttons have pointer cursor */
+  button, a {
+    @apply cursor-pointer;
+  }
+
+  /* Default text selection */
+  ::selection {
+    @apply bg-primary/30 text-gray-900 dark:bg-primary/40 dark:text-white;
+  }
+}
+
+/* Accessibility */
+.skip-link {
+  @apply absolute -top-40 left-0 bg-primary text-white p-2 z-50 transition-all duration-300 focus:top-0;
+}
+
+/* Back to top button */
+.back-to-top, .scroll-top-btn {
+  @apply fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer shadow-lg border-none z-40 opacity-0 invisible transform translate-y-5 transition-all duration-300;
+}
+
+/* Fix for circular dependency - avoid using @apply with "visible" utility */
+.back-to-top.visible, .scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover, .scroll-top-btn:hover {
+  @apply bg-primary-dark -translate-y-1 shadow-xl;
+}
+
+/* Add animation keyframes for the home page */
+/* Animation definitions for the hero section and other components */
+@keyframes dataPoint {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  20% { opacity: 1; transform: translateY(-20px) scale(1); }
+  80% { opacity: 1; transform: translateY(-80px) scale(1); }
+  100% { opacity: 0; transform: translateY(-100px) scale(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+@keyframes pulse-slower {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.15); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer .shimmer-effect {
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes float-animation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* New animations for the hero component */
+@keyframes appear {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes appear-subtle {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes appear-zoom {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-appear {
+  animation: appear 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.animate-appear-zoom {
+  animation: appear-zoom 0.5s ease forwards;
+}
+
+.float-animation {
+  animation: float-animation 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 15s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 12s ease-in-out infinite;
+}
+
+.animate-grow {
+  animation: grow 1.5s forwards ease-out;
+}
+
+.animate-dash {
+  animation: dash 20s linear infinite;
+}
+
+/* Additional animation definitions */
+@keyframes grow {
+  0% { width: 0%; }
+  100% { width: 90%; }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 20; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 4s ease infinite;
+}
+
+/* Reveal animation */
+.reveal-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.reveal-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary);
+  transform: translateX(-100%);
+  animation: reveal 0.5s ease forwards;
+}
+
+@keyframes reveal {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Typed text effect */
+.typed-cursor {
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float, .animate-pulse-slow, .animate-pulse-slower, .animate-gradient, .float-animation, .animate-appear, .animate-appear-zoom {
+    animation: none !important;
+  }
+}
+
+/* Add animation on scroll classes */
+[data-aos], .animate-element {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+[data-aos="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-aos="fade-left"] {
+  transform: translateX(-30px);
+}
+
+[data-aos="fade-right"] {
+  transform: translateX(30px);
+}
+
+[data-aos="fade-down"] {
+  transform: translateY(-30px);
+}
+
+[data-aos].aos-animate, .animate-element.animated {
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+}
+
+/* Only animate elements when JavaScript is loaded to prevent CLS */
+.js-loaded [data-aos] {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Without JS, make elements visible immediately to prevent CLS */
+:not(.js-loaded) [data-aos] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Testimonials slider styles */
+.testimonial-slide {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(50px);
+  pointer-events: none;
+  will-change: opacity, transform;
+  /* Reserve space for slides to prevent CLS */
+  min-height: 200px;
+}
+
+.testimonial-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+  pointer-events: auto;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 5rem;
+  line-height: 1;
+  font-family: Georgia, serif;
+  color: rgba(67, 97, 238, 0.1);
+}
+
+.testimonial-dot {
+  @apply w-3 h-3 rounded-full bg-gray-200 border-none cursor-pointer transition-all duration-300;
+}
+
+.testimonial-dot.active {
+  @apply bg-primary transform scale-110;
+}
+
+/* Enhanced Service card styles */
+.service-card {
+  @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md dark:shadow-gray-900/30 relative overflow-hidden z-10 border border-transparent dark:border-gray-700 transition-all duration-300;
+}
+
+.service-card::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary transition-all duration-500 z-0;
+}
+
+.service-card:hover {
+  @apply -translate-y-2 shadow-lg dark:shadow-gray-900/50 border-primary/10 dark:border-primary/20;
+}
+
+.service-card:focus-within {
+  @apply ring-2 ring-primary ring-offset-2;
+}
+
+/* Enhanced Process step styles */
+.step-number {
+  @apply w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark dark:from-primary-light dark:to-primary text-white font-bold flex items-center justify-center text-xl flex-shrink-0 shadow-md dark:shadow-primary/30 relative z-10;
+}
+
+/* Process timeline line */
+.process-steps {
+  @apply relative;
+}
+
+.process-steps::before {
+  content: '';
+  @apply absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-primary to-secondary dark:from-primary-light dark:to-secondary-light z-0;
+}
+
+/* Counter animation class */
+.counter {
+  @apply inline-block;
+}
+
+/* Enhanced Typography */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+  }
+  
+  .heading-lg {
+    @apply text-3xl md:text-4xl font-bold leading-tight;
+  }
+  
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold leading-tight;
+  }
+  
+  .heading-sm {
+    @apply text-xl md:text-2xl font-semibold leading-tight;
+  }
+  
+  .body-xl {
+    @apply text-xl leading-relaxed;
+  }
+  
+  .body-lg {
+    @apply text-lg leading-relaxed;
+  }
+  
+  .body-base {
+    @apply text-base leading-relaxed;
+  }
+  
+  .body-sm {
+    @apply text-sm leading-relaxed;
+  }
+}
+
+/* Print styles */
+@media print {
+  nav, footer, .skip-link, .theme-toggle-wrapper, .back-to-top, .scroll-top-btn {
+    @apply hidden;
+  }
+  
+  body {
+    @apply bg-white text-black;
+  }
+  
+  main {
+    @apply p-0 m-0;
+  }
+  
+  .container {
+    @apply max-w-full p-0;
+  }
+  
+  @page {
+    margin: 1.5cm;
+  }
+}
+
+/* Footer Styles */
+footer {
+  position: relative;
+  overflow: hidden;
+}
+
+footer .animate-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+footer .animate-element.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .service-icon, .step-number {
+    @apply w-10 h-10 text-base;
+  }
+  
+  .process-steps::before {
+    @apply left-5;
+  }
+  
+  /* Custom styles for process step numbers on mobile */
+  .process-steps .step-number {
+    @apply bg-gradient-to-br from-primary to-primary-dark dark:from-primary-light dark:to-primary-dark;
+  }
+
+  /* Smaller headings on mobile */
+  .heading-xl {
+    @apply text-3xl;
+  }
+  
+  .heading-lg {
+    @apply text-2xl;
+  }
+  
+  .heading-md {
+    @apply text-xl;
+  }
+  
+  .heading-sm {
+    @apply text-lg;
+  }
+}
+
+/* Media query to adjust the visual timeline for desktop */
+@media (min-width: 768px) {
+  .process-steps .step-number::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    height: 2px;
+    width: 50px;
+    background: linear-gradient(to right, var(--primary), transparent);
+    z-index: -1;
+  }
+  
+  .dark .process-steps .step-number::after {
+    background: linear-gradient(to right, var(--primary-light), transparent);
+  }
+}
+
+/* Motion-safe animations only run for users who don't have reduced motion preferences */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe\:animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .motion-safe\:transition {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+}
+/* Image placeholders to prevent CLS */
+.image-placeholder {
+  @apply bg-gray-100 animate-pulse;
+  position: relative;
+}
+
+/* CSS optimizations to reduce CLS */
+/* Set fixed dimensions for common elements to prevent layout shifts */
+.hero-image {
+  height: 500px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+}
+
+/* Add image aspect ratio containers to prevent CLS */
+.img-container-4x3 {
+  position: relative;
+  padding-bottom: 75%; /* 4:3 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.img-container-16x9 {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.img-container-1x1 {
+  position: relative;
+  padding-bottom: 100%; /* 1:1 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.img-container-4x3 img,
+.img-container-16x9 img,
+.img-container-1x1 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full transition-colors;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2 rounded-md shadow transition-all duration-300 hover:shadow-md hover:-translate-y-0.5;
+}
+
+.btn-secondary {
+  @apply bg-white hover:bg-gray-50 text-primary border border-gray-200 font-medium px-4 py-2 rounded-md shadow-sm transition-all duration-300 hover:shadow hover:-translate-y-0.5;
+}
+
+.btn-outline {
+  @apply bg-transparent hover:bg-primary/10 text-primary border border-primary/30 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5;
+}
+
+.btn-text {
+  @apply bg-transparent text-primary hover:text-primary-dark font-medium px-2 py-1 rounded transition-colors duration-300;
+}
+
+/* Enhanced focus styles */
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-shadow duration-200;
+}
+
+/* Input styles */
+.input-standard {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white;
+}
+
+/* Form label styles */
+.form-label {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+}
+
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/inter-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
