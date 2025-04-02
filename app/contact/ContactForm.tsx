@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { validateContact } from '@/lib/validation';
+import Link from 'next/link';
 
 interface FormState {
   name: string;
