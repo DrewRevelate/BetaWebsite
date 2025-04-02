@@ -280,17 +280,9 @@ export default function ServicesGrid() {
       
       {/* Service Detail Section */}
       <motion.div 
-        className="relative rounded-2xl p-8 shadow-xl overflow-hidden mb-16 backdrop-blur-md bg-white/80 dark:bg-gradient-to-br dark:from-[#1a2033] dark:to-[#141927]"
+        className="relative rounded-2xl p-8 shadow-xl overflow-hidden mb-16 backdrop-blur-md bg-white/80 dark:bg-gradient-to-br dark:from-[#1a2033] dark:to-[#141927] gradient-card"
         style={{
-          background: `linear-gradient(145deg, 
-            var(--tw-gradient-from), 
-            var(--tw-gradient-to)
-          )`,
           backdropFilter: 'blur(10px)',
-          '--tw-gradient-from': 'rgba(255, 255, 255, 0.7)',
-          '--tw-gradient-to': 'rgba(255, 255, 255, 0.5)',
-          boxShadow: 'var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)',
-          '--tw-shadow': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           border: activeService ? `2px solid ${
             activeService === 'crm' ? 'rgba(67, 97, 238, 0.3)' : 
             activeService === 'bi' ? 'rgba(72, 149, 239, 0.3)' : 
