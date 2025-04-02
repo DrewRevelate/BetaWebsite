@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
-import { ImageOptimizer } from '@/components/ImageOptimizer';
+import ImageOptimizer from '@/components/ImageOptimizer';
 import PerformanceLayout from '@/components/PerformanceLayout';
 import { getAllBlogPosts, getAllCategories, getAllTags } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';

@@ -47,31 +47,10 @@ const nextConfig = {
   experimental: {
     optimizeCss: true, // Re-enable now that critters is installed
     scrollRestoration: true,
-    // Enable memory optimization for improved build performance
-    memoryOptimizer: {
-      enabled: true,
-    },
     // Optimize builds by caching across builds
     turbotrace: {
       enabled: true,
       memoryLimit: 4000,
-    },
-    // Improve font loading performance
-    fontLoaders: [
-      { loader: '@next/font/google', options: { subsets: ['latin'] } },
-    ],
-    // Image optimization improvements
-    images: {
-      allowFutureImage: true,
-      dangerouslyAllowSVG: true,
-      contentDispositionType: 'attachment',
-      contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: '**',
-        },
-      ],
     },
     // Performance optimization features
     optimizePackageImports: ['lucide-react', 'framer-motion', 'tailwind-merge', 'clsx'],

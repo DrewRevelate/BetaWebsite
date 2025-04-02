@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
-import { ImageOptimizer } from '@/components/ImageOptimizer';
+import ImageOptimizer from '@/components/ImageOptimizer';
 import PerformanceLayout from '@/components/PerformanceLayout';
 import { getBlogPostBySlug, getAllBlogPosts, getRelatedPosts } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';

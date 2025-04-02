@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import PerformanceLayout from '@/components/PerformanceLayout';
-import { ImageOptimizer } from '@/components/ImageOptimizer';
+import ImageOptimizer from '@/components/ImageOptimizer';
 import { getAllCategories, getPostsByCategory, getAllTags } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 
