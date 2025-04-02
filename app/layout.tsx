@@ -144,7 +144,10 @@ export default function RootLayout({
           crossOrigin="anonymous" 
           referrerPolicy="no-referrer" 
           media="print" 
-          onLoad="this.media='all'"
+          onLoad={(e) => {
+            const target = e.currentTarget as HTMLLinkElement;
+            target.media = 'all';
+          }}
         />
         
         {/* Add core web vitals real user monitoring */}
